@@ -23,5 +23,5 @@
   "dependencies": {
     "jquery": "*"
   },
-  "keywords": ["set theory", "objects", "combine", "union", "intersection", "difference", "complement", "symmetric difference", "cartesian product", "power"]
+  "keywords": ["set-theory", "objects", "combine", "union", "intersection", "difference", "complement", "symmetric-difference"]
 }
