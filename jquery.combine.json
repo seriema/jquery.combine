@@ -3,7 +3,7 @@
   "title": "jQuery Combine",
   "description": "Combine objects using basic set theory - such as union, intersection, difference, symmetric difference, etc.",
   "version": "0.0.1",
-  "homepage": "https://github.com/seriema/jp.js",
+  "homepage": "https://github.com/seriema/jquery.combine",
   "author": {
     "name": "John-Philip Johansson",
     "email": "seriema@gmail.com",
@@ -11,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/seriema/jp.js"
+    "url": "git://github.com/seriema/jquery.combine"
   },
-  "bugs": "https://github.com/seriema/jp.js/issues",
+  "bugs": "https://github.com/seriema/jquery.combine/issues",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/seriema/jp.js/blob/master/LICENSE-MIT"
+      "url": "https://github.com/seriema/jquery.combine/blob/master/LICENSE-MIT"
     }
   ],
   "dependencies": {
