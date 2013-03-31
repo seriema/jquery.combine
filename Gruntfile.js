@@ -89,5 +89,5 @@ module.exports = function(grunt) {
   grunt.registerTask('dist', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
 
   // Travis CI task.
-  grunt.registerTask('travis', 'jshint qunit');
+  grunt.registerTask('travis', ['jshint', 'qunit']);
 };
