@@ -4,6 +4,8 @@
 
 Combine regular JS objects using basic set theory: union, intersection, difference, and symmetric difference.
 
+Only 184 bytes (gzipped)!
+
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
