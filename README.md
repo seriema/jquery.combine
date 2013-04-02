@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/seriema/jquery.combine.png?branch=master)](https://travis-ci.org/seriema/jquery.combine)
+
 # jQuery Combine
 
 Combine regular JS objects using basic set theory: union, intersection, difference, and symmetric difference.
