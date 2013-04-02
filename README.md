@@ -1,4 +1,4 @@
-# jquery.combine
+# jQuery Combine
 
 Combine regular JS objects using basic set theory: union, intersection, difference, and symmetric difference.
 
@@ -15,6 +15,18 @@ In your web page:
 <script src="dist/jquery.combine.min.js"></script>
 ```
 
+In your script:
+
+```javascript
+var a = { one: 1, two: 2 };
+var b = { one: 1, three: 3 };
+
+var w = $.union(a, b);        // { one: 1, two: 2, three: 3 }
+var x = $.intersection(a, b); // { one: 1 }
+var y = $.difference(a, b);   // { two: 2 }
+var z = $.symmetric(a, b);    // { two: 2, three: 3 }
+```
+
 ## Documentation
 `jQuery.extend()` is useful in a lot of situations to join objects. In a project I needed to do something different. I needed to find unique values amongst various attributes to form one unique combination. Basically I needed several `differences` and then an `union`, or more commonly done through a `symmetric difference`.
 
@@ -24,7 +36,7 @@ This library supports four combinations common in `set theory`:
 * Difference
 * Symmetric difference
 
-The methods take two or more parameters. It currently does not support deep comparisons, or "recursive call", like `jQuery.extend()` does.
+The methods take two or more arguments. It currently does not support deep comparisons, or "recursive call", like `jQuery.extend()` does.
 
 ### Union
 Union of the sets A and B, denoted A ∪ B, is the set of all objects that are a member of A, or B, or both. The union of {1, 2, 3} and {2, 3, 4} is the set {1, 2, 3, 4} .
@@ -41,7 +53,7 @@ Symmetric difference of sets A and B is the set of all objects that are a member
 ## Examples
 
 ### Union
-Union is pretty much the same as $.extend() in regular jQuery. Supports more than two parameters.
+Union is pretty much the same as $.extend() in regular jQuery. Supports more than two arguments.
 ```javascript
 var a = { one: 1, two: 2 };
 var b = { one: 1, three: 3 };
@@ -50,7 +62,7 @@ var result = $.union(a, b);  // { one: 1, two: 2, three: 3 }
 ```
 
 ### Intersection
-Copies the common properties between given objects, into a new object. Supports more than two parameters.
+Copies the common properties between given objects, into a new object. Supports more than two arguments.
 ```javascript
 var a = { one: 1, two: 2 };
 var b = { one: 1, three: 3 };
@@ -59,7 +71,7 @@ var result = $.intersection(a, b); // { one: 1 }
 ```
 
 ### Difference
-The first parameter is compared to the others and the the unique properties are copied to a new object. Supports more than two parameters.
+The first argument is compared to the others and the the unique properties are copied to a new object. Supports more than two arguments.
 ```javascript
 var u = { one: 1, two: 2 };
 var a = { one: 1, three: 3 };
@@ -68,7 +80,7 @@ var result = $.difference(u, a); // { two: 2 }
 ```
 
 ### Symmetric difference
-Similar to `difference` but it doesn't treat any parameter different, instead it makes a `union` between the `difference` of all parameters. Supports more than two parameters.
+Similar to `difference` but it doesn't treat any arguments different, instead it makes a `union` between the `difference` of all arguments. Supports more than two arguments.
 ```javascript
 var a = { one: 1, two: 2 };
 var b = { one: 1, three: 3 };
