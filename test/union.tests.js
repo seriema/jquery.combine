@@ -28,7 +28,7 @@
 	});
 
 
-	module('Union.simple');
+	module('Union');
 
 	test('Value on left, no value on right, gives left value', function () {
 		var a = { prop: 'value' };
