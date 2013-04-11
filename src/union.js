@@ -12,9 +12,18 @@
 
 		for (var i = 0; i < length; i++) { // incrementing for-loop, because order matters for union
 			var source = args[i];
-			for (var prop in source)
-				if (source.hasOwnProperty(prop))
-					result[prop] = source[prop];
+			for (var prop in source) {
+				if (source.hasOwnProperty(prop)) {
+                    if (result.hasOwnProperty(prop)) {
+                        if (Array.isArray(result[prop]))
+                            result[prop].push(source[prop]);
+                        else
+                            result[prop] = [ result[prop], source[prop] ];
+                    } else {
+                        result[prop] = source[prop];
+                    }
+                }
+            }
 		}
 
 		return result;

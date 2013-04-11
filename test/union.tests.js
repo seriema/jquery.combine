@@ -1,4 +1,5 @@
-﻿(function($) {
+﻿// TODO: Should not loose info. when two equal keys with different values are joined they should result in an array
+(function($) {
 	'use strict';
 
 	module('Union.common');
@@ -63,19 +64,20 @@
 		deepEqual(result.prop2, b.prop2);
 	});
 
-	test('One value on left, other value on right, gives the right value', function () {
+	test('One value on left, other value on right, gives left value then right value in array', function () {
 		var a = { prop: 'foo' };
 		var b = { prop: 'bar' };
+        var expected = { prop: [ 'foo', 'bar' ] };
 		var result = $.union(a, b);
 
-		deepEqual(result, b);
+		deepEqual(result, expected);
 	});
 
 	test('Two objects returns union', function () {
 		var a = { one: 1, two: 2 };
 		var b = { one: 1, three: 3 };
 
-		var expected = { one: 1, two: 2, three: 3 };
+		var expected = { one: [1, 1], two: 2, three: 3 };
 		var result = $.union(a, b);
 
 		deepEqual(result, expected);
@@ -86,7 +88,7 @@
         var b = { two: 2, three: 3 };
         var c = { three: 3, four: 4 };
         var d = { four: 4, three: 3 };
-		var expected = { one: 1, two: 2, three: 3, four: 4 };
+		var expected = { one: 1, two: [2, 2], three: [3, 3, 3, 3], four: [4, 4, 4] };
 		var result = $.union(a, b, c, d);
 
 		deepEqual(result, expected);
