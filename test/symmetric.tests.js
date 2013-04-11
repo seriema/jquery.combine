@@ -1,3 +1,4 @@
+// TODO: Should not loose data, see .union
 (function($) {
 	'use strict';
 
