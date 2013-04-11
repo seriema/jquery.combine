@@ -81,6 +81,14 @@
 		deepEqual(result, {});
 	});
 
+    test('Boolean values do not affect comparison to give wrong objects', function () {
+        var u = { foo: true, bar: false };
+        var a = { foo: false, bar: true };
+        var result = $.difference(u, a);
+
+        deepEqual(result, {});
+    });
+
 	test('Two objects returns difference of first against second', function () {
 		var u = { one: 1, two: 2 };
 		var a = { one: 1, three: 3 };
