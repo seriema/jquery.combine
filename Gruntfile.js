@@ -71,6 +71,15 @@ module.exports = function(grunt) {
         tasks: ['jshint:test', 'qunit']
       },
     },
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: "src",
+          mainConfigFile: "path/to/config.js",
+          out: "path/to/optimized.js"
+        }
+      }
+    },
   });
 
   // These plugins provide necessary tasks.
@@ -80,7 +89,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'qunit']);
