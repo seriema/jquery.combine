@@ -9,15 +9,10 @@
     "QUnit-to-JsTestDriver-adapter": "~81a1db5574fbacadb0b89b8f109e8c5694209a8f"
   },
   "main": [
-    "dist/jquery.combine.js",
-    "dist/jquery.combine.min.js"
+    "dist/*.js"
   ],
   "license": "MIT",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "components",
-    "libs",
-    "test"
+    "(!dist/**/*)"
   ]
 }
