@@ -1,6 +1,6 @@
 {
   "name": "jquery.combine",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "dependencies": {
     "jquery": "~1.9.1"
   },
@@ -8,7 +8,7 @@
     "qunit": "~1.11.0",
     "QUnit-to-JsTestDriver-adapter": "~81a1db5574fbacadb0b89b8f109e8c5694209a8f"
   },
-  "scripts": [
+  "main": [
     "dist/jquery.combine.js",
     "dist/jquery.combine.min.js"
   ],
@@ -17,6 +17,7 @@
     "**/.*",
     "node_modules",
     "components",
-    "libs"
+    "libs",
+    "test"
   ]
 }
