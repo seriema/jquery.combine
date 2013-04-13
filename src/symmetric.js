@@ -1,4 +1,14 @@
-(function($) {
+(function (factory) {
+    'use strict';
+
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['symmetric'], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
 	'use strict';
 
 	/* Symmetric difference of sets A and B is the set of all objects that are a member of exactly
@@ -6,7 +16,7 @@
 	 * for the sets {1,2,3} and {2,3,4} , the symmetric difference set is {1,4} . It is the set difference
 	 * of the union and the intersection, (A ∪ B) \ (A ∩ B) or (A \ B) ∪ (B \ A).
 	 */
-	$.symmetric = function () {
+    $.symmetric = function () {
 		var result = {};
 		var n = arguments.length;
 
@@ -24,6 +34,5 @@
 
 		return result;
 	};
-
-}(jQuery));
+}));
 
