@@ -23,7 +23,7 @@ module.exports = function(grunt) {
       dist: {
         src: ['src/*.js'],
         dest: 'dist/<%= pkg.name %>.js'
-      },
+      }
     },
     uglify: {
       options: {
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       dist: {
         src: '<%= concat.dist.dest %>',
         dest: 'dist/<%= pkg.name %>.min.js'
-      },
+      }
     },
     qunit: {
       files: ['test/**/*.html']
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
           jshintrc: 'test/.jshintrc'
         },
         src: ['test/**/*.js']
-      },
+      }
     },
     watch: {
       gruntfile: {
@@ -69,18 +69,18 @@ module.exports = function(grunt) {
       test: {
         files: '<%= jshint.test.src %>',
         tasks: ['jshint:test', 'qunit']
-      },
+      }
     },
     requirejs: {
       compile: {
         options: {
           name: 'main',
-          baseUrl: "src",
-          mainConfigFile: "src/main.js",
-          out: "dist/optimized.js"
+          baseUrl: 'src',
+          mainConfigFile: 'src/main.js',
+          out: 'dist/<%= pkg.name %>.min.js'
         }
       }
-    },
+    }
   });
 
   // These plugins provide necessary tasks.
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['jshint', 'qunit']);
 
   // Distribute task.
-  grunt.registerTask('dist', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
+  grunt.registerTask('dist', ['jshint', 'qunit', 'clean', 'concat', 'requirejs']);
 
   // Travis CI task.
   grunt.registerTask('travis', ['jshint', 'qunit']);
