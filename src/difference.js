@@ -3,7 +3,7 @@
 
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['difference'], factory);
+        define(factory);
     } else {
         // Browser globals
         factory(jQuery);

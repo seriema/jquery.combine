@@ -3,7 +3,7 @@
 
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['symmetric'], factory);
+        define(['difference', 'union'], factory);
     } else {
         // Browser globals
         factory(jQuery);
