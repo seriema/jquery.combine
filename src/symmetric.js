@@ -3,7 +3,7 @@
 
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['difference', 'union'], factory);
+        define(['../libs/jquery/jquery.js', 'difference', 'union'], factory);
     } else {
         // Browser globals
         factory(jQuery);
