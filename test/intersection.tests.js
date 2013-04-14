@@ -73,7 +73,15 @@
         var f = { foo: false };
         var result = $.intersection(a, b, c, d, e, f);
 
-        ok(!result.foo);
+        ok(result.hasOwnProperty('foo'));
+    });
+
+    test('undefined on the first object does not count, because jQuery.extend ignores it', function () {
+        var a = { foo: undefined };
+        var b = { foo: null };
+        var result = $.intersection(a, b);
+
+        ok(!result.hasOwnProperty('foo'));
     });
 
     test('Two properties on left, one equal property on right, returns only common property', function () {
