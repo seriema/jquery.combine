@@ -64,7 +64,19 @@
 		deepEqual(result, b);
 	});
 
-	test('Two properties on left, one equal property on right, returns only common property', function () {
+    test('Falsy values count as values', function () {
+        var a = { foo: 0 };
+        var b = { foo: null };
+        var c = { foo: undefined };
+        var d = { foo: [] };
+        var e = { foo: '' };
+        var f = { foo: false };
+        var result = $.intersection(a, b, c, d, e, f);
+
+        ok(!result.foo);
+    });
+
+    test('Two properties on left, one equal property on right, returns only common property', function () {
 		var a = { foo: 'bar', bar: 'baz' };
 		var b = { foo: 'bar' };
 		var result = $.intersection(a, b);
@@ -103,33 +115,44 @@
 		deepEqual(result, expected);
 	});
 
-/*  TODO: Currently not supported
-	module('Intersection.recursive');
+    test('Multiple objects returns value of last object', function () {
+        var a = { foo: 1 };
+        var b = { foo: 2 };
+        var c = { foo: 3 };
+        var d = { foo: 4 };
+        var result = $.intersection(a, b, c, d);
 
-	test('First parameter as bool (true) returns second parameter', function () {
-		var a = { foo: 'baz', bar: 'abc' };
-		var result = $.intersection(true, a);
+        deepEqual(result, d);
+    });
 
-		deepEqual(result, a);
-	});
 
-	test('First parameter as 'true' does a deep intersection (recursively one level)', function () {
-		var a = { foo: { one: 1, two: 2 } };
-		var b = { foo: { one: 1, three: 3 } };
-		var expected = { foo: { one: 1 } };
-		var result = $.intersection(true, a, b);
+    /*  TODO: Currently not supported
+        module('Intersection.recursive');
 
-		deepEqual(result, expected);
-	});
+        test('First parameter as bool (true) returns second parameter', function () {
+            var a = { foo: 'baz', bar: 'abc' };
+            var result = $.intersection(true, a);
 
-	test('First parameter as 'true' does a deep intersection (recursively two levels)', function () {
-		var a = { foo: { bar: { one: 1, two: 2 }, baz: { three: 3, four: 4 } } };
-		var b = { foo: { bar: { one: 1, three: 3 }, baz: { four: 4 } } };
-		var expected = { foo: { bar: { one: 1 }, baz: { four: 4 } } };
-		var result = $.intersection(true, a, b);
+            deepEqual(result, a);
+        });
 
-		deepEqual(result, expected);
-	});
-*/
+        test('First parameter as 'true' does a deep intersection (recursively one level)', function () {
+            var a = { foo: { one: 1, two: 2 } };
+            var b = { foo: { one: 1, three: 3 } };
+            var expected = { foo: { one: 1 } };
+            var result = $.intersection(true, a, b);
+
+            deepEqual(result, expected);
+        });
+
+        test('First parameter as 'true' does a deep intersection (recursively two levels)', function () {
+            var a = { foo: { bar: { one: 1, two: 2 }, baz: { three: 3, four: 4 } } };
+            var b = { foo: { bar: { one: 1, three: 3 }, baz: { four: 4 } } };
+            var expected = { foo: { bar: { one: 1 }, baz: { four: 4 } } };
+            var result = $.intersection(true, a, b);
+
+            deepEqual(result, expected);
+        });
+    */
 
 }(jQuery));
