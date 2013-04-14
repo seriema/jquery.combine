@@ -1,1 +1,1 @@
-require(['difference', 'intersection', 'symmetric', 'union']);
+require(['difference', 'intersection', 'symmetric', 'union'], function(){});

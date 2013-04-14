@@ -1,6 +1,6 @@
-(function () {
+
 /**
- * almond 0.2.5 Copyright (c) 2011-2012, The Dojo Foundation All Rights Reserved.
+ * almond dev0.2 Copyright (c) 2011, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/almond for details
  */
@@ -11,17 +11,12 @@
 
 var requirejs, require, define;
 (function (undef) {
-    var main, req, makeMap, handlers,
+    var main, req, makeMap,
         defined = {},
         waiting = {},
         config = {},
         defining = {},
-        hasOwn = Object.prototype.hasOwnProperty,
         aps = [].slice;
-
-    function hasProp(obj, prop) {
-        return hasOwn.call(obj, prop);
-    }
 
     /**
      * Given a relative module name, like ./something, normalize it to
@@ -77,10 +72,6 @@ var requirejs, require, define;
                 //end trimDots
 
                 name = name.join("/");
-            } else if (name.indexOf('./') === 0) {
-                // No baseName, so this is ID is resolved relative
-                // to baseUrl, pull off the leading dot.
-                name = name.substring(2);
             }
         }
 
@@ -160,14 +151,14 @@ var requirejs, require, define;
     }
 
     function callDep(name) {
-        if (hasProp(waiting, name)) {
+        if (waiting.hasOwnProperty(name)) {
             var args = waiting[name];
             delete waiting[name];
             defining[name] = true;
             main.apply(undef, args);
         }
 
-        if (!hasProp(defined, name) && !hasProp(defining, name)) {
+        if (!defined.hasOwnProperty(name)) {
             throw new Error('No ' + name);
         }
         return defined[name];
@@ -235,28 +226,6 @@ var requirejs, require, define;
         };
     }
 
-    handlers = {
-        require: function (name) {
-            return makeRequire(name);
-        },
-        exports: function (name) {
-            var e = defined[name];
-            if (typeof e !== 'undefined') {
-                return e;
-            } else {
-                return (defined[name] = {});
-            }
-        },
-        module: function (name) {
-            return {
-                id: name,
-                uri: '',
-                exports: defined[name],
-                config: makeConfig(name)
-            };
-        }
-    };
-
     main = function (name, deps, callback, relName) {
         var cjsModule, depName, ret, map, i,
             args = [],
@@ -278,22 +247,25 @@ var requirejs, require, define;
 
                 //Fast path CommonJS standard dependencies.
                 if (depName === "require") {
-                    args[i] = handlers.require(name);
+                    args[i] = makeRequire(name);
                 } else if (depName === "exports") {
                     //CommonJS module spec 1.1
-                    args[i] = handlers.exports(name);
+                    args[i] = defined[name] = {};
                     usingExports = true;
                 } else if (depName === "module") {
                     //CommonJS module spec 1.1
-                    cjsModule = args[i] = handlers.module(name);
-                } else if (hasProp(defined, depName) ||
-                           hasProp(waiting, depName) ||
-                           hasProp(defining, depName)) {
+                    cjsModule = args[i] = {
+                        id: name,
+                        uri: '',
+                        exports: defined[name],
+                        config: makeConfig(name)
+                    };
+                } else if (defined.hasOwnProperty(depName) || waiting.hasOwnProperty(depName)) {
                     args[i] = callDep(depName);
                 } else if (map.p) {
                     map.p.load(map.n, makeRequire(relName, true), makeLoad(depName), {});
                     args[i] = defined[depName];
-                } else {
+                } else if (!defining[depName]) {
                     throw new Error(name + ' missing ' + depName);
                 }
             }
@@ -321,10 +293,6 @@ var requirejs, require, define;
 
     requirejs = require = req = function (deps, callback, relName, forceSync, alt) {
         if (typeof deps === "string") {
-            if (handlers[deps]) {
-                //callback in this case is really relName
-                return handlers[deps](callback);
-            }
             //Just return the module wanted. In this scenario, the
             //deps arg is the module name, and second arg (if passed)
             //is just the relName.
@@ -358,15 +326,9 @@ var requirejs, require, define;
         if (forceSync) {
             main(undef, deps, callback, relName);
         } else {
-            //Using a non-zero value because of concern for what old browsers
-            //do, and latest browsers "upgrade" to 4 if lower value is used:
-            //http://www.whatwg.org/specs/web-apps/current-work/multipage/timers.html#dom-windowtimers-settimeout:
-            //If want a value immediately, use require('id') instead -- something
-            //that works in almond on the global level, but not guaranteed and
-            //unlikely to work in other AMD implementations.
             setTimeout(function () {
                 main(undef, deps, callback, relName);
-            }, 4);
+            }, 15);
         }
 
         return req;
@@ -378,9 +340,6 @@ var requirejs, require, define;
      */
     req.config = function (cfg) {
         config = cfg;
-        if (config.deps) {
-            req(config.deps, config.callback);
-        }
         return req;
     };
 
@@ -395,9 +354,7 @@ var requirejs, require, define;
             deps = [];
         }
 
-        if (!hasProp(defined, name) && !hasProp(waiting, name)) {
-            waiting[name] = [name, deps, callback];
-        }
+        waiting[name] = [name, deps, callback];
     };
 
     define.amd = {
@@ -405,117 +362,207 @@ var requirejs, require, define;
     };
 }());
 
-define("../libs/almond/almond", function(){});
+define("../../../almond", function(){});
 
-define('difference',[],function () {
-    
+/**
+ * @license RequireJS order 1.0.5 Copyright (c) 2010-2011, The Dojo Foundation All Rights Reserved.
+ * Available via the MIT or new BSD license.
+ * see: http://github.com/jrburke/requirejs for details
+ */
+/*jslint nomen: false, plusplus: false, strict: false */
+/*global require: false, define: false, window: false, document: false,
+  setTimeout: false */
 
-    /* Set difference of U and A, denoted U \ A, is the set of all members of U that are not members of A.
-     * The set difference {1,2,3} \ {2,3,4} is {1} , while, conversely, the set difference {2,3,4} \ {1,2,3} is {4}.
-     * When A is a subset of U, the set difference U \ A is also called the complement of A in U. In this case,
-     * if the choice of U is clear from the context, the notation Ac is sometimes used instead of U \ A,
-     * particularly if U is a universal set as in the study of Venn diagrams.
-     */
-    var slice = [].slice;
-    jQuery.difference = function (u) {
-        var result = $.extend({}, u);
-        var args = slice.call(arguments, 1);
-        var i = args.length;
+//Specify that requirejs optimizer should wrap this code in a closure that
+//maps the namespaced requirejs API to non-namespaced local variables.
+/*requirejs namespace: true */
 
-        while (i--) {
-            var source = args[i];
-            for (var prop in source)
-                if (source.hasOwnProperty(prop))
-                    delete result[prop];
-        }
+(function () {
 
-        return result;
-    };
-});
-define('intersection',[],function () {
-	
+    //Sadly necessary browser inference due to differences in the way
+    //that browsers load and execute dynamically inserted javascript
+    //and whether the script/cache method works when ordered execution is
+    //desired. Currently, Gecko and Opera do not load/fire onload for scripts with
+    //type="script/cache" but they execute injected scripts in order
+    //unless the 'async' flag is present.
+    //However, this is all changing in latest browsers implementing HTML5
+    //spec. With compliant browsers .async true by default, and
+    //if false, then it will execute in order. Favor that test first for forward
+    //compatibility.
+    var testScript = typeof document !== "undefined" &&
+                 typeof window !== "undefined" &&
+                 document.createElement("script"),
 
-	/* Intersection of the sets A and B, denoted A ∩ B, is the set of all objects that are members of both A and B.
-	 * The intersection of {1, 2, 3} and {2, 3, 4} is the set {2, 3}.
-	 */
-    var slice = [].slice;
-    jQuery.intersection = function () {
-		var result = $.extend({}, arguments[0]);
-		var args = slice.call(arguments, 1);
-		var length = args.length;
+        supportsInOrderExecution = testScript && (testScript.async ||
+                               ((window.opera &&
+                                 Object.prototype.toString.call(window.opera) === "[object Opera]") ||
+                               //If Firefox 2 does not have to be supported, then
+                               //a better check may be:
+                               //('mozIsLocallyAvailable' in window.navigator)
+                               ("MozAppearance" in document.documentElement.style))),
 
-        for (var i = 0; i < length; i++) { // incrementing for-loop, because order matters
-			var source = args[i];
-			for (var prop in result) {
-				if (source.hasOwnProperty(prop))
-					result[prop] = source[prop];
-				else
-					delete result[prop];
-			}
-		}
+        //This test is true for IE browsers, which will load scripts but only
+        //execute them once the script is added to the DOM.
+        supportsLoadSeparateFromExecute = testScript &&
+                                          testScript.readyState === 'uninitialized',
 
-		return result;
-	};
-});
-define('union',[],function () {
-	
+        readyRegExp = /^(complete|loaded)$/,
+        cacheWaiting = [],
+        cached = {},
+        scriptNodes = {},
+        scriptWaiting = [];
 
-	/* Union of the sets A and B, denoted A ∪ B, is the set of all objects that are a member of A, or B, or both.
-	 * The union of {1, 2, 3} and {2, 3, 4} is the set {1, 2, 3, 4}.
-	 */
-	// Implementation taken from Underscore.js Version (1.4.4)
-    var slice = [].slice;
-    jQuery.union = function () {
-		var result = $.extend({}, arguments[0]);
-		var args = slice.call(arguments, 1);
-		var length = args.length;
+    //Done with the test script.
+    testScript = null;
 
-		for (var i = 0; i < length; i++) { // incrementing for-loop, because order matters for union
-			var source = args[i];
-			for (var prop in source) {
-				if (source.hasOwnProperty(prop)) {
-                    if (result.hasOwnProperty(prop)) {
-                        if (Array.isArray(result[prop]))
-                            result[prop].push(source[prop]);
-                        else
-                            result[prop] = [ result[prop], source[prop] ];
-                    } else {
-                        result[prop] = source[prop];
-                    }
+    //Callback used by the type="script/cache" callback that indicates a script
+    //has finished downloading.
+    function scriptCacheCallback(evt) {
+        var node = evt.currentTarget || evt.srcElement, i,
+            moduleName, resource;
+
+        if (evt.type === "load" || readyRegExp.test(node.readyState)) {
+            //Pull out the name of the module and the context.
+            moduleName = node.getAttribute("data-requiremodule");
+
+            //Mark this cache request as loaded
+            cached[moduleName] = true;
+
+            //Find out how many ordered modules have loaded
+            for (i = 0; (resource = cacheWaiting[i]); i++) {
+                if (cached[resource.name]) {
+                    resource.req([resource.name], resource.onLoad);
+                } else {
+                    //Something in the ordered list is not loaded,
+                    //so wait.
+                    break;
                 }
             }
-		}
 
-		return result;
-	};
-});
-define('symmetric',['difference', 'union'], function () {
-	
+            //If just loaded some items, remove them from cacheWaiting.
+            if (i > 0) {
+                cacheWaiting.splice(0, i);
+            }
 
-	/* Symmetric difference of sets A and B is the set of all objects that are a member of exactly
-	 * one of A and B (elements which are in one of the sets, but not in both). For instance,
-	 * for the sets {1,2,3} and {2,3,4} , the symmetric difference set is {1,4} . It is the set difference
-	 * of the union and the intersection, (A ∪ B) \ (A ∩ B) or (A \ B) ∪ (B \ A).
-	 */
-    jQuery.symmetric = function () {
-		var result = {};
-		var n = arguments.length;
+            //Remove this script tag from the DOM
+            //Use a setTimeout for cleanup because some older IE versions vomit
+            //if removing a script node while it is being evaluated.
+            setTimeout(function () {
+                node.parentNode.removeChild(node);
+            }, 15);
+        }
+    }
 
-		for(var i = 0; i < n; i++) {
-			var difference = arguments[i];
-			for (var j = 0; j < n; j++) {
-				if (j === i)
-					continue;
+    /**
+     * Used for the IE case, where fetching is done by creating script element
+     * but not attaching it to the DOM. This function will be called when that
+     * happens so it can be determined when the node can be attached to the
+     * DOM to trigger its execution.
+     */
+    function onFetchOnly(node) {
+        var i, loadedNode, resourceName;
 
-				var source = arguments[j];
-				difference = $.difference(difference, source);
-			}
-			result = $.union(result, difference);
-		}
+        //Mark this script as loaded.
+        node.setAttribute('data-orderloaded', 'loaded');
 
-		return result;
-	};
-});
-require(['difference', 'intersection', 'symmetric', 'union'], function(){});
-define("main", function(){});
+        //Cycle through waiting scripts. If the matching node for them
+        //is loaded, and is in the right order, add it to the DOM
+        //to execute the script.
+        for (i = 0; (resourceName = scriptWaiting[i]); i++) {
+            loadedNode = scriptNodes[resourceName];
+            if (loadedNode &&
+                loadedNode.getAttribute('data-orderloaded') === 'loaded') {
+                delete scriptNodes[resourceName];
+                require.addScriptToDom(loadedNode);
+            } else {
+                break;
+            }
+        }
+
+        //If just loaded some items, remove them from waiting.
+        if (i > 0) {
+            scriptWaiting.splice(0, i);
+        }
+    }
+
+    define('order',{
+        version: '1.0.5',
+
+        load: function (name, req, onLoad, config) {
+            var hasToUrl = !!req.nameToUrl,
+                url, node, context;
+
+            //If no nameToUrl, then probably a build with a loader that
+            //does not support it, and all modules are inlined.
+            if (!hasToUrl) {
+                req([name], onLoad);
+                return;
+            }
+
+            url = req.nameToUrl(name, null);
+
+            //Make sure the async attribute is not set for any pathway involving
+            //this script.
+            require.s.skipAsync[url] = true;
+            if (supportsInOrderExecution || config.isBuild) {
+                //Just a normal script tag append, but without async attribute
+                //on the script.
+                req([name], onLoad);
+            } else if (supportsLoadSeparateFromExecute) {
+                //Just fetch the URL, but do not execute it yet. The
+                //non-standards IE case. Really not so nice because it is
+                //assuming and touching requrejs internals. OK though since
+                //ordered execution should go away after a long while.
+                context = require.s.contexts._;
+
+                if (!context.urlFetched[url] && !context.loaded[name]) {
+                    //Indicate the script is being fetched.
+                    context.urlFetched[url] = true;
+
+                    //Stuff from require.load
+                    require.resourcesReady(false);
+                    context.scriptCount += 1;
+
+                    //Fetch the script now, remember it.
+                    node = require.attach(url, context, name, null, null, onFetchOnly);
+                    scriptNodes[name] = node;
+                    scriptWaiting.push(name);
+                }
+
+                //Do a normal require for it, once it loads, use it as return
+                //value.
+                req([name], onLoad);
+            } else {
+                //Credit to LABjs author Kyle Simpson for finding that scripts
+                //with type="script/cache" allow scripts to be downloaded into
+                //browser cache but not executed. Use that
+                //so that subsequent addition of a real type="text/javascript"
+                //tag will cause the scripts to be executed immediately in the
+                //correct order.
+                if (req.specified(name)) {
+                    req([name], onLoad);
+                } else {
+                    cacheWaiting.push({
+                        name: name,
+                        req: req,
+                        onLoad: onLoad
+                    });
+                    require.attach(url, null, name, scriptCacheCallback, "script/cache");
+                }
+            }
+        }
+    });
 }());
+
+var one = {
+    name: 'one'
+};
+
+define("one", function(){});
+
+var two = {
+    name: 'two',
+    oneName: one.name
+};
+
+define("two", function(){});

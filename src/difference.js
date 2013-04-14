@@ -1,14 +1,4 @@
-(function (factory) {
-    'use strict';
-
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['../libs/jquery/jquery.js'], factory);
-    } else {
-        // Browser globals
-        factory(jQuery);
-    }
-}(function ($) {
+define(function () {
     'use strict';
 
     /* Set difference of U and A, denoted U \ A, is the set of all members of U that are not members of A.
@@ -18,7 +8,7 @@
      * particularly if U is a universal set as in the study of Venn diagrams.
      */
     var slice = [].slice;
-    $.difference = function (u) {
+    jQuery.difference = function (u) {
         var result = $.extend({}, u);
         var args = slice.call(arguments, 1);
         var i = args.length;
@@ -32,4 +22,4 @@
 
         return result;
     };
-}));
+});

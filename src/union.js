@@ -1,14 +1,4 @@
-(function (factory) {
-    'use strict';
-
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['../libs/jquery/jquery.js'], factory);
-    } else {
-        // Browser globals
-        factory(jQuery);
-    }
-}(function ($) {
+define(function () {
 	'use strict';
 
 	/* Union of the sets A and B, denoted A ∪ B, is the set of all objects that are a member of A, or B, or both.
@@ -16,7 +6,7 @@
 	 */
 	// Implementation taken from Underscore.js Version (1.4.4)
     var slice = [].slice;
-    $.union = function () {
+    jQuery.union = function () {
 		var result = $.extend({}, arguments[0]);
 		var args = slice.call(arguments, 1);
 		var length = args.length;
@@ -39,5 +29,4 @@
 
 		return result;
 	};
-}));
-
+});

@@ -35,7 +35,7 @@ module.exports = function(grunt) {
       }
     },
     qunit: {
-      files: ['test/**/*.html']
+      files: ['test/**/index.html']
     },
     jshint: {
       gruntfile: {
@@ -74,10 +74,12 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          name: 'main',
+          name: '../libs/almond/almond',
           baseUrl: 'src',
-          mainConfigFile: 'src/main.js',
-          out: 'dist/<%= pkg.name %>.min.js'
+          include: 'main',
+          out: 'dist/<%= pkg.name %>.js',
+          optimize: 'none',
+          wrap: true
         }
       }
     }
@@ -93,10 +95,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit']);
+  grunt.registerTask('default', ['jshint', 'requirejs', 'uglify', 'qunit']);
 
   // Distribute task.
-  grunt.registerTask('dist', ['jshint', 'qunit', 'clean', 'concat', 'requirejs']);
+  grunt.registerTask('dist', ['jshint', 'clean', 'concat', 'requirejs', 'qunit']);
 
   // Travis CI task.
   grunt.registerTask('travis', ['jshint', 'qunit']);
