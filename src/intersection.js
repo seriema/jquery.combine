@@ -1,5 +1,5 @@
-define(function () {
-	'use strict';
+(function ($) {
+    'use strict';
 
 	/* Intersection of the sets A and B, denoted A ∩ B, is the set of all objects that are members of both A and B.
 	 * The intersection of {1, 2, 3} and {2, 3, 4} is the set {2, 3}.
@@ -22,4 +22,4 @@ define(function () {
 
 		return result;
 	};
-});
+}(jQuery));

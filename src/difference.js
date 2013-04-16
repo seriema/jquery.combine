@@ -1,4 +1,4 @@
-define(function () {
+(function ($) {
     'use strict';
 
     /* Set difference of U and A, denoted U \ A, is the set of all members of U that are not members of A.
@@ -8,7 +8,7 @@ define(function () {
      * particularly if U is a universal set as in the study of Venn diagrams.
      */
     var slice = [].slice;
-    jQuery.difference = function (u) {
+    $.difference = function (u) {
         var result = $.extend({}, u);
         var args = slice.call(arguments, 1);
         var i = args.length;
@@ -22,4 +22,4 @@ define(function () {
 
         return result;
     };
-});
+}(jQuery));
