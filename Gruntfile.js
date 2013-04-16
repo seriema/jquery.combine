@@ -97,10 +97,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'requirejs', 'uglify', 'qunit']);
+  grunt.registerTask('default', ['jshint', 'requirejs', 'qunit']);
 
   // Distribute task.
-  grunt.registerTask('dist', ['jshint', 'clean', 'concat', 'requirejs', 'qunit']);
+  grunt.registerTask('dist', ['jshint', 'clean', 'requirejs', 'uglify', 'qunit']);
 
   // Travis CI task.
   grunt.registerTask('travis', ['jshint', 'qunit']);
