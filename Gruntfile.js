@@ -74,12 +74,14 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          name: '../libs/almond/almond',
+          name: 'main',
           baseUrl: 'src',
-          include: 'main',
           out: 'dist/<%= pkg.name %>.js',
           optimize: 'none',
-          wrap: true
+          wrap: {
+              startFile: 'src/start.frag',
+              endFile: 'src/end.frag'
+          }
         }
       }
     }
