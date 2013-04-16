@@ -2,7 +2,7 @@
 
 # jQuery Combine
 
-Combine regular JS objects using basic set theory: union, intersection, difference, and symmetric difference.
+Combine regular JS objects using some basic operations: union, intersection, difference, and symmetric difference.
 
 Only 238 bytes (gzipped)!
 
@@ -41,6 +41,8 @@ This library supports four combinations common in `set theory`:
 * Symmetric difference
 
 The methods take two or more arguments. It currently does not support deep comparisons, or "recursive call", like `jQuery.extend()` does.
+
+*Note*: When there's attributes with different values, the last one in the arguments list is used.
 
 ### Union
 Union of the sets A and B, denoted A ∪ B, is the set of all objects that are a member of A, or B, or both. The union of {1, 2, 3} and {2, 3, 4} is the set {1, 2, 3, 4} .
