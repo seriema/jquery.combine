@@ -64,20 +64,20 @@
 		deepEqual(result.prop2, b.prop2);
 	});
 
-	test('One value on left, other value on right, gives left value then right value in array', function () {
+	test('One value on left, other value on right, gives right value', function () {
 		var a = { prop: 'foo' };
 		var b = { prop: 'bar' };
-        var expected = { prop: [ 'foo', 'bar' ] };
+	var expected = { prop: 'bar' };
 		var result = $.union(a, b);
 
 		deepEqual(result, expected);
 	});
 
 	test('Two objects returns union', function () {
-		var a = { one: 1, two: 2 };
-		var b = { one: 1, three: 3 };
+	var a = { foo: 1, bar: 1 };
+	var b = { foo: 2, buz: 1 };
+		var expected = { foo: 2, bar: 1, buz: 1 };
 
-		var expected = { one: [1, 1], two: 2, three: 3 };
 		var result = $.union(a, b);
 
 		deepEqual(result, expected);
@@ -88,31 +88,9 @@
         var b = { two: 2, three: 3 };
         var c = { three: 3, four: 4 };
         var d = { four: 4, three: 3 };
-		var expected = { one: 1, two: [2, 2], three: [3, 3, 3, 3], four: [4, 4, 4] };
+		var expected = { one: 1, two: 2, three: 3, four: 4 };
 		var result = $.union(a, b, c, d);
 
 		deepEqual(result, expected);
 	});
-
-/* TODO: Currently not supported
-	module('Union.recursive');
-
-	test('First paramater as 'true' does a deep union (recursively one level)', function () {
-		var a = { foo: { one: 1, two: 2 } };
-		var b = { foo: { one: 1, three: 3 } };
-		var expected = { foo: { one: 1,  two: 2, three: 3 } };
-		var result = $.union(true, a, b);
-
-		deepEqual(result, expected);
-	});
-
-	test('First paramater as 'true' does a deep union (recursively two levels)', function () {
-		var a = { foo: { bar: { one: 1, two: 2 }, baz: { three: 3, four: 4 } } };
-		var b = { foo: { bar: { one: 1, three: 3 }, baz: { four: 4 } } };
-		var expected = { foo: { bar: { one: 1, two: 2, three: 3  }, baz: { three: 3, four: 4 } } };
-		var result = $.union(true, a, b);
-
-		deepEqual(result, expected);
-	});
-*/
 }(jQuery));

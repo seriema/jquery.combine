@@ -22,13 +22,13 @@ In your web page:
 In your script:
 
 ```javascript
-var a = { one: 1, two: 2 };
-var b = { one: 1, three: 3 };
+var a = { foo: 1, bar: 1 };
+var b = { foo: 2, buz: 1 };
 
-var w = $.union(a, b);        // { one: 1, two: 2, three: 3 }
-var x = $.intersection(a, b); // { one: 1 }
-var y = $.difference(a, b);   // { two: 2 }
-var z = $.symmetric(a, b);    // { two: 2, three: 3 }
+var w = $.union(a, b);        // { foo: 2, bar: 1, buz: 1 }
+var x = $.intersection(a, b); // { foo: 2 }
+var y = $.difference(a, b);   // { bar: 1 }
+var z = $.symmetric(a, b);    // { bar: 1, buz: 1 }
 ```
 
 ## Documentation
@@ -61,40 +61,43 @@ Symmetric difference of sets A and B is the set of all objects that are a member
 ### Union
 Union is pretty much the same as $.extend() in regular jQuery. Supports more than two arguments.
 ```javascript
-var a = { one: 1, two: 2 };
-var b = { one: 1, three: 3 };
+var a = { foo: 1, bar: 1 };
+var b = { foo: 2, buz: 1 };
 
-var result = $.union(a, b);  // { one: 1, two: 2, three: 3 }
+var result = $.union(a, b); // { foo: 2, bar: 1, buz: 1 }
 ```
 
 ### Intersection
 Copies the common properties between given objects, into a new object. Supports more than two arguments.
 ```javascript
-var a = { one: 1, two: 2 };
-var b = { one: 1, three: 3 };
+var a = { foo: 1, bar: 1 };
+var b = { foo: 2, buz: 1 };
 
-var result = $.intersection(a, b); // { one: 1 }
+var result = $.intersection(a, b); // { foo: 2 }
 ```
 
 ### Difference
 The first argument is compared to the others and the the unique properties are copied to a new object. Supports more than two arguments.
 ```javascript
-var u = { one: 1, two: 2 };
-var a = { one: 1, three: 3 };
+var a = { foo: 1, bar: 1 };
+var b = { foo: 2, buz: 1 };
 
-var result = $.difference(u, a); // { two: 2 }
+var result = $.difference(a, b); // { bar: 1 }
 ```
 
 ### Symmetric difference
 Similar to `difference` but it doesn't treat any arguments different, instead it makes a `union` between the `difference` of all arguments. Supports more than two arguments.
 ```javascript
-var a = { one: 1, two: 2 };
-var b = { one: 1, three: 3 };
+var a = { foo: 1, bar: 1 };
+var b = { foo: 2, buz: 1 };
 
-var result = $.symmetric(a, b); // { two: 2, three: 3 }
+var result = $.symmetric(a, b); // { bar: 1, buz: 1 }
 ```
 
+## Developers
+This project can be developed and tested simply by using your standard editor and opening /test/index.html in a browser. But it also supports Grunt to set up a nice environment and work with Travis-CI. `grunt dist` creates a distribution package. It uses Bower to keep the libraries updated, but for convenience the libraries are checked in. If you use WebStorm IDE or otherwise prefer the jsTestDriver there's support for that as well. JSHint is used and encouraged, so use the included config files. Dependencies are solved with RequireJS, but does not rely on any other functionality from it.
 
 
 ## Release History
+v0.1.0 - ?? April 2013 - Updated library based on feedback. Also added support for hipster-coding and increased buzzword-compliance.
 v0.0.1 - 25 March 2013 - Completed library code and basic documentation.

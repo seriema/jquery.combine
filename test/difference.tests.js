@@ -90,9 +90,9 @@
     });
 
 	test('Two objects returns difference of first against second', function () {
-		var u = { one: 1, two: 2 };
-		var a = { one: 1, three: 3 };
-		var expected = { two: 2 };
+	var u = { foo: 1, bar: 1 };
+	var a = { foo: 2, buz: 1 };
+		var expected = { bar: 1 };
 
 		var result = $.difference(u, a);
 

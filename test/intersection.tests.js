@@ -1,5 +1,4 @@
-﻿// TODO: Should not loose data, see .union
-(function($) {
+﻿(function($) {
 	'use strict';
 
 	module('Intersection.common');
@@ -31,9 +30,9 @@
 	module('Intersection');
 
 	test('Two objects returns intersection', function () {
-		var a = { one: 1, two: 2 };
-		var b = { one: 1, three: 3 };
-		var expected = { one: 1 };
+	var a = { foo: 1, bar: 1 };
+	var b = { foo: 2, buz: 1 };
+		var expected = { foo: 2 };
 
 		var result = $.intersection(a, b);
 
@@ -132,35 +131,4 @@
 
         deepEqual(result, d);
     });
-
-
-    /*  TODO: Currently not supported
-        module('Intersection.recursive');
-
-        test('First parameter as bool (true) returns second parameter', function () {
-            var a = { foo: 'baz', bar: 'abc' };
-            var result = $.intersection(true, a);
-
-            deepEqual(result, a);
-        });
-
-        test('First parameter as 'true' does a deep intersection (recursively one level)', function () {
-            var a = { foo: { one: 1, two: 2 } };
-            var b = { foo: { one: 1, three: 3 } };
-            var expected = { foo: { one: 1 } };
-            var result = $.intersection(true, a, b);
-
-            deepEqual(result, expected);
-        });
-
-        test('First parameter as 'true' does a deep intersection (recursively two levels)', function () {
-            var a = { foo: { bar: { one: 1, two: 2 }, baz: { three: 3, four: 4 } } };
-            var b = { foo: { bar: { one: 1, three: 3 }, baz: { four: 4 } } };
-            var expected = { foo: { bar: { one: 1 }, baz: { four: 4 } } };
-            var result = $.intersection(true, a, b);
-
-            deepEqual(result, expected);
-        });
-    */
-
 }(jQuery));

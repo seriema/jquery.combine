@@ -1,4 +1,3 @@
-// TODO: Should not loose data, see .union
 (function($) {
 	'use strict';
 
@@ -23,9 +22,8 @@
 	test('One parameter returns that parameter', function () {
 		var a = { foo: 'baz', bar: 'abc' };
 		var result = $.symmetric(a);
-		var original = $.extend({}, a);
 
-		deepEqual(result, original);
+		deepEqual(result, a);
 	});
 
 
@@ -73,9 +71,9 @@
 	});
 
 	test('Two objects returns symmetric difference', function () {
-		var a = { one: 1, two: 2 };
-		var b = { one: 1, three: 3 };
-		var expected = { two: 2, three: 3 };
+	var a = { foo: 1, bar: 1 };
+	var b = { foo: 2, buz: 1 };
+		var expected = { bar: 1, buz: 1 };
 
 		var result = $.symmetric(a, b);
 
@@ -92,26 +90,4 @@
 
 		deepEqual(result, expected);
 	});
-
-/* TODO: Currently not supported
-	module('symmetric.recursive');
-
-	test('First parameter as 'true' does a deep symmetric (recursively one level)', function () {
-		var a = { foo: { one: 1, two: 2 } };
-		var b = { foo: { one: 1, three: 3 } };
-		var expected = { foo: { one: 1,  two: 2, three: 3 } };
-		var result = $.symmetric(true, a, b);
-
-		deepEqual(result, expected);
-	});
-
-	test('First parameter as 'true' does a deep symmetric (recursively two levels)', function () {
-		var a = { foo: { bar: { one: 1, two: 2 }, baz: { three: 3, four: 4 } } };
-		var b = { foo: { bar: { one: 1, three: 3 }, baz: { four: 4 } } };
-		var expected = { foo: { bar: { one: 1, two: 2, three: 3  }, baz: { three: 3, four: 4 } } };
-		var result = $.symmetric(true, a, b);
-
-		deepEqual(result, expected);
-	});
-*/
 }(jQuery));

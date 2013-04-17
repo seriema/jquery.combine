@@ -15,14 +15,7 @@
 			var source = args[i];
 			for (var prop in source) {
 				if (source.hasOwnProperty(prop)) {
-                    if (result.hasOwnProperty(prop)) {
-                        if (Array.isArray(result[prop]))
-                            result[prop].push(source[prop]);
-                        else
-                            result[prop] = [ result[prop], source[prop] ];
-                    } else {
-                        result[prop] = source[prop];
-                    }
+		    result[prop] = source[prop];
                 }
             }
 		}
