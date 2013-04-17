@@ -15,7 +15,7 @@
 			var source = args[i];
 			for (var prop in source) {
 				if (source.hasOwnProperty(prop)) {
-		    result[prop] = source[prop];
+                   result[prop] = source[prop];
                 }
             }
 		}

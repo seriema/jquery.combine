@@ -99,5 +99,5 @@ This project can be developed and tested simply by using your standard editor an
 
 
 ## Release History
-v0.1.0 - ?? April 2013 - Updated library based on feedback. Also added support for hipster-coding and increased buzzword-compliance.
+v0.1.0 - 17 April 2013 - Updated library based on feedback. Also added support for hipster-coding and increased buzzword-compliance.
 v0.0.1 - 25 March 2013 - Completed library code and basic documentation.
