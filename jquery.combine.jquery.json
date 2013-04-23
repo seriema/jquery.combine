@@ -1,7 +1,7 @@
 {
   "name": "jquery.combine",
   "title": "jQuery Combine",
-  "description": "Combine objects using basic set theory - such as union, intersection, difference, and symmetric difference. This means you can add two objects together and only get the attributes that are unique to each object, or other combination.",
+  "description": "Combine objects through union, intersection, difference, and symmetric difference. This means you can add two objects together and only get the attributes that are unique to each object, or other combination. Supports Twitter Bower with `bower install jquery.combine`.",
   "version": "0.1.0",
   "homepage": "https://github.com/seriema/jquery.combine",
   "author": {
