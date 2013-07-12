@@ -1,21 +1,39 @@
 {
-  "name": "jquery-plugin",
+  "name": "jquery.combine",
+  "title": "jQuery Combine",
   "version": "0.1.0",
+  "description": "Combine objects through union, intersection, difference, and symmetric difference. This means you can add two objects together and only get the attributes that are unique to each object, or other combination. Supports Twitter Bower with `bower install jquery.combine`.",
+  "homepage": "https://github.com/seriema/jquery.combine",
+  "author": {
+    "name": "John-Philip Johansson",
+    "email": "seriema@gmail.com",
+    "url": "http://johansson.jp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/seriema/jquery.combine"
+  },
+  "bugs": "https://github.com/seriema/jquery.combine/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/seriema/jquery.combine/blob/master/LICENSE-MIT"
+    }
+  ],
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-qunit": "~0.1.1",
-    "grunt-contrib-concat": "~0.1.2",
-    "grunt-contrib-uglify": "~0.1.1",
-    "grunt-contrib-watch": "~0.2.0",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt": "~0.4.1",
-    "grunt-cli": "~0.1.7",
-    "grunt-contrib-requirejs": "~0.4.0"
+    "grunt-contrib-jshint": ">=0.6.0",
+    "grunt-contrib-qunit": ">=0.2.2",
+    "grunt-contrib-concat": ">=0.3.0",
+    "grunt-contrib-uglify": ">=0.2.2",
+    "grunt-contrib-watch": ">=0.4.4",
+    "grunt-contrib-clean": ">=0.4.1",
+    "grunt": ">=0.4.1",
+    "grunt-contrib-requirejs": ">=0.4.1"
   }
 }

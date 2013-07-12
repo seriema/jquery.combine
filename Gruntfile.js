@@ -102,6 +102,6 @@ module.exports = function(grunt) {
   // Distribute task.
   grunt.registerTask('dist', ['jshint', 'clean', 'requirejs', 'uglify', 'qunit']);
 
-  // Travis CI task.
-  grunt.registerTask('travis', ['jshint', 'qunit']);
+  // Test task.
+  grunt.registerTask('test', ['jshint', 'qunit']);
 };
